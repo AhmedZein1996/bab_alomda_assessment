@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppStyles {
-  static TextStyle defaultTextStyle = const TextStyle(
-    color: Colors.white,
+  static TextStyle defaultTextStyle = TextStyle(
+    color: Colors.black,
     fontWeight: FontWeight.normal,
-    fontSize: 14,
+    fontSize: 14.sp,
   );
 
   static final darkFadedBoxDecoration = BoxDecoration(

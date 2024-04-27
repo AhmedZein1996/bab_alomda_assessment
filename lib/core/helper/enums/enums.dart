@@ -30,3 +30,15 @@ enum SectionFilter {
 
   const SectionFilter(this.value);
 }
+
+enum StoryDisplayStatus { list, cards }
+
+enum ImageFormat {
+  superJumbo("Super Jumbo"),
+  threeByTwoSmallAt2X("threeByTwoSmallAt2X"),
+  largeThumbnail("Large Thumbnail");
+
+  final String value;
+
+  const ImageFormat(this.value);
+}

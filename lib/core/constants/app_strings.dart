@@ -1,6 +1,9 @@
 class AppStrings {
   //APP
   static const appTitle = 'Bab Alomda Assessment';
+  static const String tryAgain = "Try Again";
+  static const noConnection =
+      'Please check you internet connection and try again later';
 
   //REMOTE API ERROR STRINGS
   static const String success = "success";
@@ -16,4 +19,9 @@ class AppStrings {
   static const String defaultError = "default_error";
   static const String cacheError = "cache_error";
   static const String noInternetError = "no_internet_error";
+
+  //HOME VIEW
+  static const String filter = "Filter";
+  static const String loading = "Loading";
+  static const String search = 'Search';
 }

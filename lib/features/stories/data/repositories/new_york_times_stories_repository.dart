@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:bab_alomda_assessment/features/stories/data/datasources/new_york_times_stories_datasource.dart';
 import 'package:bab_alomda_assessment/features/stories/data/model/story_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 
 import '../../../../core/network/error_handler.dart';
 import '../../../../core/network/failure.dart';
@@ -22,9 +23,7 @@ class NewYorkTimesStoriesRepository {
 
       return Right(stories);
     } catch (e) {
-      if (e is DioException) {
-        //debugPrint(e.type.toString());
-      }
+      log("$e");
       return Left(ErrorHandler(e).failure);
     }
   }
@@ -42,9 +41,6 @@ class NewYorkTimesStoriesRepository {
 
       return Right(stories);
     } catch (e) {
-      if (e is DioException) {
-        //debugPrint(e.type.toString());
-      }
       return Left(ErrorHandler(e).failure);
     }
   }

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +16,7 @@ class Utils {
     Fluttertoast.showToast(
         msg: text,
         backgroundColor: color,
-        fontSize: 16,
+        fontSize: 16.sp,
         toastLength: long ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
   }
 

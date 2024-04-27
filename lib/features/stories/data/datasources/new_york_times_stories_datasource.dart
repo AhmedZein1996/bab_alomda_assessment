@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bab_alomda_assessment/core/helper/enums/enums.dart';
 
 import '../../../../core/network/remote_api.dart';
@@ -17,6 +19,7 @@ class NewYorkTimesStoriesDatasource
   @override
   Future<ResponseModel> getTopStories() async {
     final result = await _remoteApi.getStories(SectionFilter.home.value);
+    log("result is ${result.results}");
     return result;
   }
 

@@ -18,83 +18,67 @@ class StoryCubit extends Cubit<StoryState> {
   final searchFocusNode = FocusNode();
   bool inSearchMode = false;
   List<StoryModel> get viewStories => inSearchMode ? searchedStories : stories;
-  SectionFilter? currentSearchFilter;
+  StoryDisplayStatus storyDisplayStatus = StoryDisplayStatus.list;
+  StoryDisplayStatus get viewStoryDisplayStatus => storyDisplayStatus;
 
   Future<void> getTopStories() async {
     emit(StoryLoadingState());
-
     final result = await _storyRepo.getTopStories();
     result.fold((failure) {
       Utils.showToast(failure.message);
-      emit(StoryErrorState());
+      emit(StoryErrorState(failure.message));
     }, (fetchedStories) {
-      stories.addAll(fetchedStories);
+      stories = fetchedStories;
       emit(StorySuccessState());
     });
   }
 
-  Future<void> getFilterStories(SectionFilter section) async {
+  Future<void> getFilterStories(String section) async {
     emit(StoryLoadingState());
 
-    final result = await _storyRepo.getFilterStories(section.value);
+    final result = await _storyRepo.getFilterStories(section);
     result.fold((failure) {
       Utils.showToast(failure.message);
-      emit(StoryErrorState());
+      emit(StoryErrorState(failure.message));
     }, (fetchedStories) {
-      stories.addAll(fetchedStories);
+      stories = fetchedStories;
       emit(StorySuccessState());
     });
   }
 
-  // Future searchAthletes() async {
-  //   searchFocusNode.unfocus();
-  //   if (searchController.text.trim().isNotEmpty) {
-  //     emit(HomeLoadingState());
-  //     final searchText = searchController.text.trim();
-  //     final result = await _homeRepo.searchAthletes(searchText);
-  //     result.fold((l) {
-  //       Utils.showToast(l.message);
-  //       emit(HomeErrorState());
-  //     }, (athletesResult) {
-  //       searchedStories = athletesResult.toList();
-  //       inSearchMode = true;
-  //       emit(HomeSuccessState());
-  //     });
-  //   }
-  // }
-  //
-  //
-  // void onSearchFieldChanged(String text) {
-  //   if (text.isEmpty) {
-  //     inSearchMode = false;
-  //     emit(HomeSuccessState());
-  //     searchFocusNode.unfocus();
-  //   }
-  // }
-  //
-  //
-  // void onSearchFilterChanged(SectionFilter searchFilter) {
-  //   changeSearchFilter(searchFilter);
-  //   final sortFunction = (currentSearchFilter == SectionFilter.rating)
-  //       ? sortAthletesByRating
-  //       : sortAthletesByDate;
-  //   stories = sortFunction(stories.toList()).toList();
-  //   searchedStories = sortFunction(searchedStories.toList()).toList();
-  //   emit(HomeSuccessState());
-  // }
-  //
-  // void changeSearchFilter(SectionFilter searchFilter) {
-  //   currentSearchFilter = searchFilter;
-  //   emit(HomeSuccessState());
-  // }
-  //
-  // List<AthleteModel> sortAthletesByRating(List<AthleteModel> athletesList) {
-  //   return athletesList..sort((a, b) => b.likesCount.compareTo(a.likesCount));
-  // }
-  //
-  // List<AthleteModel> sortAthletesByDate(List<AthleteModel> athletesList) {
-  //   return athletesList
-  //     ..sort((a, b) => b.createdAt.millisecondsSinceEpoch
-  //         .compareTo(a.createdAt.millisecondsSinceEpoch));
-  // }
+  void changeStoriesDisplayStatus(StoryDisplayStatus newValue) {
+    storyDisplayStatus = newValue;
+    emit(ChangeStoryDisplayState());
+  }
+
+  void searchStories() {
+    if (searchController.text.trim().isNotEmpty) {
+      startSearching();
+    } else {
+      stopSearching();
+    }
+  }
+
+  void startSearching() {
+    final searchText = searchController.text.trim();
+
+    searchedStories = stories
+        .where((story) =>
+            story.title.toLowerCase().contains(searchText) ||
+            story.author.toLowerCase().contains(searchText))
+        .toList();
+    inSearchMode = true;
+    emit(StartSearchState());
+  }
+
+  void stopSearching() {
+    searchFocusNode.unfocus();
+    inSearchMode = false;
+    emit(FinishSearchState());
+  }
+
+  void onRefreshScreen() {
+    searchController.clear();
+    startSearching();
+  }
 }

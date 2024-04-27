@@ -1,3 +1,4 @@
+import 'package:bab_alomda_assessment/core/network/internet_connectivity_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,10 +9,10 @@ import 'core/styling/app_themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  //Initializing firebase, local database api & getId dependencies
+  // Initialize app
   await initializeApp();
   runApp(BabAlomdaAssessment(appRouter: AppRouter()));
+  setupInternetConnectivityListener();
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -32,7 +33,6 @@ class BabAlomdaAssessment extends StatelessWidget {
         onGenerateRoute: appRouter.generateRoute,
         title: AppStrings.appTitle,
         theme: AppThemes.defaultTheme,
-        onGenerateInitialRoutes: appRouter.generateInitialRoute,
       ),
     );
   }

@@ -11,7 +11,7 @@ ResponseModel _$ResponseModelFromJson(Map<String, dynamic> json) =>
       json['status'] as String,
       json['section'] as String,
       json['results'],
-      json['num_results'] as String,
+      (json['num_results'] as num).toInt(),
       DateTime.parse(json['last_updated'] as String),
     );
 
