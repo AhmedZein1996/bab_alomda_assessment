@@ -32,10 +32,13 @@ class ListStoryWidget extends StatelessWidget {
             child: Row(
               children: [
                 CachedNetworkImageWidget(
-                    imgUrl: storyModel.multimedia
-                        .firstWhere((media) =>
-                            media.format == ImageFormat.largeThumbnail.value)
-                        .imageUrl,
+                    imgUrl: storyModel.multimedia == null
+                        ? ''
+                        : storyModel.multimedia!
+                            .firstWhere((media) =>
+                                media.format ==
+                                ImageFormat.largeThumbnail.value)
+                            .imageUrl,
                     width: orientation == Orientation.portrait ? 120.w : 120,
                     height: orientation == Orientation.portrait ? 100.h : 100,
                     onErrorWidget: kNetworkImageOnErrorWidget),

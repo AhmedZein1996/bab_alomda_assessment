@@ -12,8 +12,8 @@ StoryModel _$StoryModelFromJson(Map<String, dynamic> json) => StoryModel(
       json['abstract'] as String,
       json['url'] as String,
       json['byline'] as String,
-      (json['multimedia'] as List<dynamic>)
-          .map((e) => Media.fromJson(e as Map<String, dynamic>))
+      (json['multimedia'] as List<dynamic>?)
+          ?.map((e) => Media.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

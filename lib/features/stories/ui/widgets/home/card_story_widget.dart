@@ -26,10 +26,12 @@ class CardStoryWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedNetworkImageWidget(
-                  imgUrl: storyModel.multimedia
-                      .firstWhere((media) =>
-                          media.format == ImageFormat.largeThumbnail.value)
-                      .imageUrl,
+                  imgUrl: storyModel.multimedia == null
+                      ? ''
+                      : storyModel.multimedia!
+                          .firstWhere((media) =>
+                              media.format == ImageFormat.largeThumbnail.value)
+                          .imageUrl,
                   height: 120,
                   onErrorWidget: kNetworkImageOnErrorWidget),
               SizedBox(height: 8.w),

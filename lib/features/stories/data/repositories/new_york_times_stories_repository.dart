@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bab_alomda_assessment/core/network/response_model.dart';
 import 'package:bab_alomda_assessment/features/stories/data/datasources/new_york_times_stories_datasource.dart';
 import 'package:bab_alomda_assessment/features/stories/data/model/story_model.dart';
 import 'package:dartz/dartz.dart';
@@ -13,9 +14,9 @@ class NewYorkTimesStoriesRepository {
 
   Future<Either<Failure, List<StoryModel>>> getTopStories() async {
     try {
-      final response = await _storiesDS.getTopStories();
+      final ResponseModel response = await _storiesDS.getTopStories();
       final storyJsonList = List.from(response.results);
-
+      log('storyJsonList $storyJsonList');
       final stories = storyJsonList
           .map((storyJson) =>
               StoryModel.fromJson(Map<String, dynamic>.from(storyJson)))

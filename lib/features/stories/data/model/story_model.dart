@@ -17,7 +17,7 @@ class StoryModel {
   @JsonKey(name: "byline")
   final String author;
 
-  final List<Media> multimedia;
+  final List<Media>? multimedia;
 
   const StoryModel(this.section, this.title, this.description, this.articleUrl,
       this.author, this.multimedia);

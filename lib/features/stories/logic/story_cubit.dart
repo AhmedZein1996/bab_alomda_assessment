@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helper/enums/enums.dart';
-import '../../../core/utils/utils.dart';
 
 part 'story_state.dart';
 
@@ -25,7 +24,6 @@ class StoryCubit extends Cubit<StoryState> {
     emit(StoryLoadingState());
     final result = await _storyRepo.getTopStories();
     result.fold((failure) {
-      Utils.showToast(failure.message);
       emit(StoryErrorState(failure.message));
     }, (fetchedStories) {
       stories = fetchedStories;
@@ -38,7 +36,6 @@ class StoryCubit extends Cubit<StoryState> {
 
     final result = await _storyRepo.getFilterStories(section);
     result.fold((failure) {
-      Utils.showToast(failure.message);
       emit(StoryErrorState(failure.message));
     }, (fetchedStories) {
       stories = fetchedStories;
@@ -79,6 +76,6 @@ class StoryCubit extends Cubit<StoryState> {
 
   void onRefreshScreen() {
     searchController.clear();
-    startSearching();
+    stopSearching();
   }
 }

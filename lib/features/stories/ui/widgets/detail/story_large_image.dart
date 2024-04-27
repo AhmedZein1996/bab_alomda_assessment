@@ -19,9 +19,12 @@ class StoryLargeImages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImageWidget(
-        imgUrl: storyModel.multimedia
-            .firstWhere((media) => media.format == ImageFormat.superJumbo.value)
-            .imageUrl,
+        imgUrl: storyModel.multimedia == null
+            ? ''
+            : storyModel.multimedia!
+                .firstWhere(
+                    (media) => media.format == ImageFormat.superJumbo.value)
+                .imageUrl,
         height: orientation == Orientation.portrait ? .4.sh : 1.sh,
         onErrorWidget: kNetworkImageOnErrorWidget);
   }
