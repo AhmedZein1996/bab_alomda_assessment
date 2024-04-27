@@ -35,10 +35,6 @@ To run the app locally, follow these steps:
 4. Install dependencies: `flutter pub get`
 5. Run the app: `flutter run`
 
-
-## Screenshots
-
-
 ## Video Demo
 
 A video demonstration of the app's functionality is available in the repository. To watch the demo, download the file `babalomda_assessment.mp4` from the repository.
